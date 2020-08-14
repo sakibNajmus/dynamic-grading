@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultsheet - Marksheet generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="main-title">Dynamic Grading</h2>
+        <div class="header-box">
+            <div class="header">
+                <span>Subject</span>
+                <span>Marks</span>
+                <span>Action</span>
+                <span>Grade</span>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <label for="bangla">Bangla</label>
+                    <div class="marks-box">
+                        <input id="bangla-marks" type="text" placeholder="Number you got" />
+                    </div>
+                    <div class="action-box">
+                        <button id="bangla-calculator">Calculate</button>
+                    </div>
+                    <div class="grade-box">
+                        <h4><span id="bangla-grade">F</span></h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="english">English</label>
+                    <div class="marks-box">
+                        <input id="english-marks" type="text" placeholder="Number you got" />
+                    </div>
+                    <div class="action-box">
+                        <button id="english-calculator">Calculate</button>
+                    </div>
+                    <div class="grade-box">
+                        <h4> <span id="english-grade">F</span> </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="ict">ICT</label>
+                    <div class="marks-box">
+                        <input id="ict-marks" type="text" placeholder="Number you got" />
+                    </div>
+                    <div class="action-box">
+                        <button id="ict-calculator">Calculate</button>
+                    </div>
+                    <div class="grade-box">
+                        <h4> <span id="ict-grade">F</span> </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <p>Total Mark: <strong id="total-marks">00</strong></p>
+                <div class="action-box">
+                    <button id="final-grade-calculator">Calculate</button>
+                </div>
+
+                <p>Final Grade: <strong id="final-grade">F</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const banglaCalculator = document.getElementById('bangla-calculator');
+    banglaCalculator.addEventListener('click', function(){        
+        
+        calculation('bangla-grade', 'bangla-marks');
+    })
+
+    const englishCalculator = document.getElementById('english-calculator');
+    englishCalculator.addEventListener('click', function(){        
+        
+        calculation('english-grade', 'english-marks');
+    })
+
+    const ictCalculator = document.getElementById('ict-calculator');
+    ictCalculator.addEventListener('click', function(){        
+        
+        calculation('ict-grade', 'ict-marks');
+    })
+
+    function calculation(id, marksID){
+        const subjectMarks = document.getElementById(marksID).value;
+        const subjectMarksUpdated = parseFloat(subjectMarks);
+
+        if(subjectMarksUpdated <= 39.99){
+            document.getElementById(id).innerText = "F";
+        }
+        else if (subjectMarksUpdated >= 40 && subjectMarksUpdated <= 49.99){
+            document.getElementById(id).innerText = "D";
+        }
+        else if (subjectMarksUpdated >= 50 && subjectMarksUpdated <= 59.99){
+            document.getElementById(id).innerText = "C";
+        }
+        else if (subjectMarksUpdated >= 60 && subjectMarksUpdated <= 69.99){
+            document.getElementById(id).innerText = "B";
+        }
+        else if (subjectMarksUpdated >= 70 && subjectMarksUpdated <= 79.99){
+            document.getElementById(id).innerText = "A";
+        }
+        else if (subjectMarksUpdated >= 80 && subjectMarksUpdated <= 100){
+            document.getElementById(id).innerText = "A+";
+        }
+        else{            
+            return false;
+        }
+        
+        const totalMarks = document.getElementById('total-marks').innerText;
+        const updatedTotalMarks = parseFloat(totalMarks);
+        const finalTotalMarks = updatedTotalMarks + subjectMarksUpdated;
+        document.getElementById('total-marks').innerText = finalTotalMarks;
+
+        const finalGradeCalculator = document.getElementById('final-grade-calculator');
+        finalGradeCalculator.addEventListener('click', function(){
+            
+            const gradeCalculation = finalTotalMarks / 3;
+            const updatedGradeCalculation = parseFloat(gradeCalculation);
+
+            if(updatedGradeCalculation <= 39.99){
+            document.getElementById('final-grade').innerText = "F";
+        }
+        else if (updatedGradeCalculation >= 40 && updatedGradeCalculation <= 49.99){
+            document.getElementById('final-grade').innerText = "D";
+        }
+        else if (updatedGradeCalculation >= 50 && updatedGradeCalculation <= 59.99){
+            document.getElementById('final-grade').innerText = "C";
+        }
+        else if (updatedGradeCalculation >= 60 && updatedGradeCalculation <= 69.99){
+            document.getElementById('final-grade').innerText = "B";
+        }
+        else if (updatedGradeCalculation >= 70 && updatedGradeCalculation <= 79.99){
+            document.getElementById('final-grade').innerText = "A";
+        }
+        else if (updatedGradeCalculation >= 80 && updatedGradeCalculation <= 100){
+            document.getElementById('final-grade').innerText = "A+";
+        }
+        else{            
+            return false;
+        }
+            
+        })
+    }
+
+
+</script>
+
+</html>
